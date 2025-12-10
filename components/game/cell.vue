@@ -9,12 +9,24 @@ interface Props {
 }
 const props = defineProps<Props>()
 
+const status = computed(() => {
+  if (!Number.isFinite(props.cell.required)) {
+    return 'inf'
+  }
+  else if (props.cell.remaining === 2 || (props.cell.remaining === 1 && gameStore.state.player.x === props.cell.x && gameStore.state.player.y === props.cell.y)) {
+    return 'double'
+  }
+  else if (props.cell.remaining === 1 || (props.cell.remaining === 0 && gameStore.state.player.x === props.cell.x && gameStore.state.player.y === props.cell.y)) {
+    return 'single'
+  }
+  else {
+    return 'satisfied'
+  }
+})
+
 const classList = computed(() => {
   return {
-    [$style._single]: props.cell.required === 1,
-    [$style._double]: props.cell.required === 2,
-    [$style._inf]: !Number.isFinite(props.cell.required),
-    [$style._satisfied]: Number.isFinite(props.cell.required) && props.cell.remaining === 0,
+    [$style['_' + status.value]]: true,
   }
 })
 </script>
@@ -23,65 +35,54 @@ const classList = computed(() => {
   <div
     :class="[$style.GameCell, classList]"
   >
-    <div :class="$style.inner">
-      <div :class="$style.label">
-        {{ gameStore.cellLabel(props.cell) }}
-      </div>
-    </div>
+    <div :class="$style.inner" />
   </div>
 </template>
 
 <style lang="scss" module>
   .GameCell {
-    width: 4.8rem;
-    height: 4.8rem;
+    width: 5.2rem;
+    height: 5.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: .6rem;
-    box-shadow: 0 .1rem 0 rgba(0, 0, 0, .06);
-    border: .1rem solid #e6e6e6;
     background: white;
+    opacity: 1;
+    transition: opacity .5s ease, transform .5s ease, background-color .5s ease, border .5s ease;
 
     &._single {
-      background: linear-gradient(180deg,#fef3c7,#fffde7);
+      background: #556b78;
+      border:#2d3c44 solid .2rem;
+      box-shadow: 0 0 0.4rem #a3c7d4, 0 0 0.2rem #a3c7d4 inset;
     }
 
     &._double {
-      background: linear-gradient(180deg,#fee2e2,#fff5f5);
+      background:  #394a54;
+      border:#1c262c solid .2rem;
+      box-shadow: 0 0 0.5rem #7f9ea8, 0 0 0.3rem #7f9ea8 inset;
     }
 
     &._inf {
-      background: linear-gradient(180deg,#e6fffa,#f0fdfa);
+      background: #246c8f;
+      border:#123946 solid .2rem;
+      box-shadow: 0 0 0.5rem #53b3da, 0 0 0.3rem #53b3da inset;
     }
 
     &._satisfied {
-      opacity: .5;
+      background: #556b78;
+      border:#2d3c44 solid .2rem;
+      opacity: 0;
+      transform: translateY(1.4rem) scale(0.6) rotate(60deg);
     }
   }
 
   .inner {
     text-align: center;
-    font-size: 1.2rem;
     position: relative;
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .label {
-    position: absolute;
-    top: .4rem;
-    left: .4rem;
-    font-weight: 600;
-    font-size: 1.2rem;
-  }
-
-  .player {
-    position:absolute;
-    bottom: .4rem;
-    right: .4rem
   }
 </style>

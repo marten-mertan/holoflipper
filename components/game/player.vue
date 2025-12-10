@@ -5,8 +5,8 @@ const gameStore = useGameStore()
 
 const classList = computed(() => {
   return {
-    [$style[gameStore.state.player.state]]: true,
-    [$style[gameStore.state.player.facing]]: true,
+    [$style['_' + gameStore.state.player.state]]: true,
+    [$style['_' + gameStore.state.player.facing]]: true,
   }
 })
 </script>
@@ -21,7 +21,7 @@ const classList = computed(() => {
   $frame-width: 8rem;
 
   @mixin player-animation($state, $frames, $duration) {
-    &.#{$state} {
+    &._#{$state} {
       background-image: url('~/public/img/player/player_#{$state}.png');
       background-size: #{$frames * $frame-width} auto;
       animation: #{$state} #{$frames * $duration} steps(#{$frames}) infinite;
@@ -42,11 +42,11 @@ const classList = computed(() => {
     @include player-animation('idle', $idle-frames, 0.15s);
     @include player-animation('run', $run-frames, 0.08s);
 
-    &.left {
+    &._left {
       --facing-scale: -1;
     }
 
-    &.right {
+    &._right {
       --facing-scale: 1;
     }
   }
