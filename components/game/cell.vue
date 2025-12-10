@@ -27,12 +27,6 @@ const classList = computed(() => {
       <div :class="$style.label">
         {{ gameStore.cellLabel(props.cell) }}
       </div>
-      <div
-        v-if="gameStore.state.player.x === cell.x && gameStore.state.player.y === cell.y"
-        :class="$style.player"
-      >
-        👤
-      </div>
     </div>
   </div>
 </template>

@@ -1,6 +1,7 @@
 export type IGameConfig = {
   initRows: number
   initCols: number
+  moveDurationMs: number
 }
 
 export type IGameState = {
@@ -12,6 +13,9 @@ export type IGameState = {
   player: {
     x: number
     y: number
+    facing: 'left' | 'right'
+    state: 'idle' | 'run'
+    runTimer: number | null
   }
   moves: number
   solution: {

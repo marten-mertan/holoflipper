@@ -10,7 +10,7 @@
           to="/"
           :class="$style.link"
         >
-          Flipper
+          HoloFlipper
         </NuxtLink>
       </div>
       <LayoutHeaderMenu />

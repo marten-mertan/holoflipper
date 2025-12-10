@@ -5,6 +5,7 @@ export const useGameStore = defineStore('gameStore', () => {
   const CONFIG: IGameConfig = {
     initRows: 7,
     initCols: 9,
+    moveDurationMs: 200,
   }
   const state = ref<IGameState>({
     settingsRows: CONFIG.initRows,
@@ -12,7 +13,7 @@ export const useGameStore = defineStore('gameStore', () => {
     rows: CONFIG.initRows,
     cols: CONFIG.initCols,
     grid: [],
-    player: { x: 0, y: 0 },
+    player: { x: 0, y: 0, facing: 'right', state: 'idle', runTimer: null },
     moves: 0,
     solution: [],
     showSolution: false,
@@ -138,6 +139,15 @@ export const useGameStore = defineStore('gameStore', () => {
   function move(dir: IDirection) {
     const nx = state.value.player.x + (dir === 'left' ? -1 : dir === 'right' ? 1 : 0)
     const ny = state.value.player.y + (dir === 'up' ? -1 : dir === 'down' ? 1 : 0)
+
+    if (dir === 'left') {
+      state.value.player.facing = 'left'
+    }
+    else if (dir === 'right') {
+      state.value.player.facing = 'right'
+    }
+
+    // check bounds first — do not change state if move won't happen
     if (nx < 0 || ny < 0 || nx >= state.value.cols || ny >= state.value.rows) return
 
     // prevent moving onto cell with no remaining visits
@@ -146,10 +156,23 @@ export const useGameStore = defineStore('gameStore', () => {
       return // movement blocked
     }
 
+    // perform move: set running state, update coords and visits
+    state.value.player.state = 'run'
+
     state.value.player.x = nx
     state.value.player.y = ny
     state.value.moves++
     stepOnCell(nx, ny)
+
+    // clear previous timer and schedule returning to idle after moveDurationMs
+    if (state.value.player.runTimer) {
+      clearTimeout(state.value.player.runTimer)
+      state.value.player.runTimer = null
+    }
+    state.value.player.runTimer = window.setTimeout(() => {
+      state.value.player.state = 'idle'
+      state.value.player.runTimer = null
+    }, CONFIG.moveDurationMs)
   }
 
   function stepOnCell(x: number, y: number) {
@@ -176,6 +199,12 @@ export const useGameStore = defineStore('gameStore', () => {
       c.remaining = Number.isFinite(c.required) ? c.required : Infinity
     }
     stepOnCell(state.value.player.x, state.value.player.y)
+    // clear any running timer and ensure idle state
+    if (state.value.player.runTimer) {
+      clearTimeout(state.value.player.runTimer)
+      state.value.player.runTimer = null
+    }
+    state.value.player.state = 'idle'
   }
 
   const remainingNeeded = computed(() => {

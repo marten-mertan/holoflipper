@@ -7,12 +7,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   app: {
-    baseURL: '/flipper/',
+    baseURL: '/holoflipper/',
     head: {
       htmlAttrs: {
         lang: 'en',
       },
-      title: 'Flipper',
+      title: 'HoloFlipper',
 
       /**
        * Метатеги, фавиконки и т.п
@@ -28,11 +28,11 @@ export default defineNuxtConfig({
         },
         {
           name: 'title',
-          content: 'Flipper',
+          content: 'HoloFlipper',
         },
         {
           name: 'description',
-          content: 'Flipper description',
+          content: 'HoloFlipper description',
         },
         {
           name: 'author',
@@ -49,12 +49,12 @@ export default defineNuxtConfig({
       ],
       link: [
         /* Favicons */
-        { rel: 'icon', type: 'image/x-icon', href: '/flipper/favicons/favicon.ico' },
-        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/flipper/favicons/favicon-32x32.png' },
-        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/flipper/favicons/favicon-16x16.png' },
-        { rel: 'apple-touch-icon', sizes: '180x180', href: '/flipper/favicons/apple-touch-icon.png' },
-        { rel: 'manifest', href: '/flipper/favicons/site.webmanifest' },
-        { rel: 'mask-icon', href: '/flipper/favicons/safari-pinned-tab.svg', color: '#e7609e' },
+        { rel: 'icon', type: 'image/x-icon', href: '/holoflipper/favicons/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/holoflipper/favicons/favicon-32x32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/holoflipper/favicons/favicon-16x16.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/holoflipper/favicons/apple-touch-icon.png' },
+        { rel: 'manifest', href: '/holoflipper/favicons/site.webmanifest' },
+        { rel: 'mask-icon', href: '/holoflipper/favicons/safari-pinned-tab.svg', color: '#e7609e' },
       ],
     },
   },
