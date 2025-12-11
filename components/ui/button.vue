@@ -3,23 +3,34 @@
 
 <template>
   <button :class="$style.UiButton">
-    <slot />
+    <div :class="$style.inner">
+      <slot />
+    </div>
   </button>
 </template>
 
 <style lang="scss" module>
 .UiButton {
-  font-size: 1.6rem;
-  padding: 1.2rem 2.4rem;
+  position: relative;
   cursor: pointer;
-  background-color: $white;
-  color: $black;
-  border: .1rem solid $black;
-  transition: color $default-transition, background-color $default-transition;
+  background-color: $blue-light;
 
   &:hover {
-    background-color: $black;
-    color: $white;
+    .inner {
+      transform: translate(0, 0);
+    }
   }
+}
+
+.inner {
+  font-size: 1.6rem;
+  background-color: $blue;
+  color: $white;
+  font-weight: bold;
+  padding: 1.2rem 2.4rem;
+  transform: translate(-.4rem, -.4rem);
+  pointer-events: none;
+  will-change: transform;
+  transition: transform $default-transition;
 }
 </style>

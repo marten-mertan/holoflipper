@@ -29,13 +29,19 @@ const classList = computed(() => {
     [$style['_' + status.value]]: true,
   }
 })
+
+const label = computed(() => {
+  return gameStore.cellLabel(props.cell)
+})
 </script>
 
 <template>
   <div
     :class="[$style.GameCell, classList]"
   >
-    <div :class="$style.inner" />
+    <div :class="$style.inner">
+      {{ label }}
+    </div>
   </div>
 </template>
 
@@ -46,31 +52,31 @@ const classList = computed(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: $white;
     opacity: 1;
     transition: opacity .5s ease, transform .5s ease, background-color .5s ease, border .5s ease;
 
     &._single {
-      background: #556b78;
-      border:#2d3c44 solid .2rem;
-      box-shadow: 0 0 0.4rem #a3c7d4, 0 0 0.2rem #a3c7d4 inset;
+      background: $blue;
+      border: $blue-light solid .2rem;
+      box-shadow: $cell-shadow;
     }
 
     &._double {
-      background:  #394a54;
-      border:#1c262c solid .2rem;
-      box-shadow: 0 0 0.5rem #7f9ea8, 0 0 0.3rem #7f9ea8 inset;
+      background: $green;
+      border: $green-light solid .2rem;
+      box-shadow: $cell-shadow;
     }
 
     &._inf {
-      background: #246c8f;
-      border:#123946 solid .2rem;
-      box-shadow: 0 0 0.5rem #53b3da, 0 0 0.3rem #53b3da inset;
+      background: $orange;
+      border: $orange-light solid .2rem;
+      box-shadow: $cell-shadow;
     }
 
     &._satisfied {
-      background: #556b78;
-      border:#2d3c44 solid .2rem;
+      background: $blue;
+      border: $blue-light solid .2rem;
       opacity: 0;
       transform: translateY(1.4rem) scale(0.6) rotate(60deg);
     }
@@ -79,6 +85,9 @@ const classList = computed(() => {
   .inner {
     text-align: center;
     position: relative;
+    font-size: 2rem;
+    font-weight: bold;
+    color: $white;
     width: 100%;
     height: 100%;
     display: flex;

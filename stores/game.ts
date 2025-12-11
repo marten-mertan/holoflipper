@@ -216,7 +216,7 @@ export const useGameStore = defineStore('gameStore', () => {
   })
 
   function cellLabel(cell: ICell): string {
-    if (!Number.isFinite(cell.required)) return '∞'
+    if (!Number.isFinite(cell.required)) return ''
     return String(cell.remaining)
   }
 

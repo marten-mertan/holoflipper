@@ -49,6 +49,18 @@ const classList = computed(() => {
     &._right {
       --facing-scale: 1;
     }
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 20%;
+      background-color: $black;
+      opacity: .2;
+      border-radius: 50%;
+      bottom: 1rem;
+      z-index: -1;
+    }
   }
 
   @keyframes idle {

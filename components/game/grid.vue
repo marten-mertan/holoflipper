@@ -9,7 +9,7 @@ const computedStyle = computed(() => {
 
 const playerStyle = computed(() => {
   return {
-    top: (gameStore.state.player.y * 5.2 - 2.8) + 'rem',
+    top: (gameStore.state.player.y * 5.2 - 3.2) + 'rem',
     left: (gameStore.state.player.x * 5.2 - 1.4) + 'rem',
   }
 })
