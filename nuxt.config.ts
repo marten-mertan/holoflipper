@@ -50,11 +50,11 @@ export default defineNuxtConfig({
       link: [
         /* Favicons */
         { rel: 'icon', type: 'image/x-icon', href: '/holoflipper/favicons/favicon.ico' },
-        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/holoflipper/favicons/favicon-32x32.png' },
-        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/holoflipper/favicons/favicon-16x16.png' },
+        { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/holoflipper/favicons/favicon-96x96.png' },
+        { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/holoflipper/favicons/web-app-manifest-192x192.png' },
+        { rel: 'icon', type: 'image/png', sizes: '512x512', href: '/holoflipper/favicons/web-app-manifest-512x512.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/holoflipper/favicons/apple-touch-icon.png' },
         { rel: 'manifest', href: '/holoflipper/favicons/site.webmanifest' },
-        { rel: 'mask-icon', href: '/holoflipper/favicons/safari-pinned-tab.svg', color: '#e7609e' },
       ],
     },
   },
